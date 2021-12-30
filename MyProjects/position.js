@@ -5,7 +5,12 @@ const background = { uri: "https://hinhchuctet.com/wp-content/uploads/2018/04/hi
 
 const image = {uri:"https://t4.ftcdn.net/jpg/01/37/50/79/360_F_137507905_iAnRkcJkgkqvq2aV4FbefNAnUgDkNilw.jpg"};
 
-const App = () => {
+const App = (props) => {
+    const { item } = props.route.params;
+    const item1 = props.route.params.item;
+    console.log('item', item);
+    console.log('item 1', item1);
+
 
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -15,7 +20,8 @@ const App = () => {
             <ImageBackground source={background} resizeMode="cover" style={styles.background} >
 
             <View style={styles.head}>
-                <Text style={styles.prod}>PROD</Text>
+                <Text style={styles.prod}>{item.name}</Text>
+                <Text style={styles.prod}>{item.email}</Text>
                 <Switch
                     trackColor={{ false: 'red', true: 'green' }}
                     thumbColor={isEnabled ? 'white' : 'white'}
@@ -26,7 +32,7 @@ const App = () => {
                 <Text style={styles.staging}>STAGING</Text>
             </View>
 
-                <Image source={image} resizeMode='cover' style={styles.image}></Image>
+                <Image source={{uri: item.avatar}} resizeMode='cover' style={styles.image}></Image>
             
                 <Text style={styles.big}>
                     BEYOND{"\n"}DRIVEN.
@@ -115,4 +121,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default App;
+export {App};

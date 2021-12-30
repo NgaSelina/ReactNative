@@ -1,7 +1,9 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, TextInput, Text, ImageBackground, Image, TouchableOpacity, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 const UselessTextInput = () => {
+  const { navigate } = useNavigation();
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
   const image = {uri: "https://kenh14cdn.com/2020/9/25/hinh-nen-iphone-14-16009901160591553517350.jpg"};
@@ -42,7 +44,7 @@ const UselessTextInput = () => {
 
       </View>
       <TouchableOpacity style = {styles.container} 
-      onPress = { () => {alert('coming soon')}}>
+      onPress = { () => {navigate('Remenber')}}>
       <Text style={styles.remember}>I don't remember my passcode</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -85,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UselessTextInput;
+export {  UselessTextInput };

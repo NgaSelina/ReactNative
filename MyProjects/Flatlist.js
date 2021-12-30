@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ImageBackground, Image, TouchableOpacity, Button } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 const image = {uri: "https://lh3.googleusercontent.com/H2oENJMeM2_feKeIAcZHhRwDURqnC9wN31iPcUvcR_mnPScgxnsvOtkxx2SUBVfedLSb=w720-h310"};
 
 const invited = {uri: "https://i.pinimg.com/564x/dc/5f/50/dc5f502fffc9a064bca7a7be5c8771b2.jpg"};
@@ -112,6 +114,8 @@ const Item = ({ name, email, avatar, status }) => (
 );
 
 const FlatListItem = ({item}) => {
+
+  const { navigate } = useNavigation();
     const [isSent, setRequestStatus] = useState(false)
 
     const renderStatus = (status) => {
@@ -131,23 +135,23 @@ const FlatListItem = ({item}) => {
         }
       }
 
-    return <View style={{flexDirection: 'row', borderRadius: 15,backgroundColor: 'pink', marginVertical: 1, alignItems: 'center'}}>
-    
-    <Image source={{  uri:  item.avatar}} resizeMode="cover" style={styles.avatar} />
-    
-      <View style={{ flex: 1}}>
-        <Item name={item.name} 
-        email={item.email}
-         />
-      </View>
-      
-      {renderStatus(item.status)}
-      
-    </View>
+    return (
+      <TouchableOpacity style={{flexDirection: 'row', borderRadius: 15,backgroundColor: 'pink', marginVertical: 1, alignItems: 'center'}} 
+      onPress = { () => {navigate('Profile', {item})}} >
+        <Image source={{  uri:  item.avatar}} resizeMode="cover" style={styles.avatar} />
+        <View style={{ flex: 1}}>
+          <Item name={item.name} 
+          email={item.email}
+          />
+        </View>
+        {renderStatus(item.status)}
+      </TouchableOpacity>
+    )
     
     }
 
-const App = () => {
+const App1 = () => {
+  const { navigate } = useNavigation();
   const [contactList, setContactList] = useState(DATA1);
 
 
@@ -163,7 +167,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <ImageBackground source={image} resizeMode="cover" style={styles.image} >
+    {/* <ImageBackground source={image} resizeMode="cover" style={styles.image} > */}
       <FlatList
         data={contactList}
         ItemSeparatorComponent={() => <View style={{ height: 2, backgroundColor: 'gray'}} />}
@@ -181,7 +185,7 @@ const App = () => {
      
       
       
-      </ImageBackground>
+      {/* </ImageBackground> */}
     </SafeAreaView>
   );
 }
@@ -245,4 +249,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export {App1};
